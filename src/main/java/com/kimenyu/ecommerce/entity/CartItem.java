@@ -21,8 +21,7 @@ public class CartItem {
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 
-    // @OneToOne(mappedBy = "cartItem", cascade = CascadeType.ALL)
-    // private OrderItem orderItem; // Reference to the order item created from this cart item
+    
 
     @Column(nullable = false)
     private int quantity;
@@ -37,11 +36,6 @@ public class CartItem {
     public boolean isEmpty() {
         return quantity == 0;
     }
-
-    // Calculating subtotal based on product price and quantity
-    // public double calculateSubTotal() {
-    //     return product.getPrice() * quantity;
-    // }
 }
 
 

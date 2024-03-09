@@ -19,7 +19,7 @@ import com.kimenyu.ecommerce.entity.Product;
 import com.kimenyu.ecommerce.service.ProductService;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1")
 public class ProductController {
 
     private final ProductService productService;
@@ -28,7 +28,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/create-product")
+    @PostMapping("/products/create-product")
     public ResponseEntity<String> createProduct(@RequestBody ProductDto productDTO) {
         productService.createProduct(productDTO);
         return ResponseEntity.ok("Product created successfully");
@@ -40,7 +40,7 @@ public class ProductController {
         return ResponseEntity.ok(productDTOs);
     }
 
-    @PutMapping("/update/{productId}")
+    @PutMapping("/products/update/{productId}")
     public ResponseEntity<String> updateProduct(@PathVariable Long productId, @RequestBody ProductDto productDTO) {
         productService.updateProduct(productId, productDTO);
         return ResponseEntity.ok("Product updated successfully");
@@ -58,7 +58,7 @@ public class ProductController {
         return ResponseEntity.ok(productDTO);
     }
 
-    @DeleteMapping("/delete/{productId}")
+    @DeleteMapping("products/delete/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully");
