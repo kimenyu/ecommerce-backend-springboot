@@ -1,14 +1,17 @@
 package com.kimenyu.ecommerce.service;
 
-
-import com.webtutsplus.ecommerce.dto.cart.AddToCartDto;
-import com.webtutsplus.ecommerce.dto.cart.CartDto;
-import com.webtutsplus.ecommerce.dto.cart.CartItemDto;
-import com.webtutsplus.ecommerce.exceptions.CartItemNotExistException;
-import com.webtutsplus.ecommerce.model.*;
-import com.webtutsplus.ecommerce.repository.CartRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.kimenyu.ecommerce.entity.Cart;
+import com.kimenyu.ecommerce.entity.Product;
+import com.kimenyu.ecommerce.entity.User;
+import com.kimenyu.ecommerce.exceptions.CartItemNotExistException;
+import com.kimenyu.ecommerce.repository.CartRepository;
+import com.kimenyu.ecommerce.dto.cart.AddToCartDto;
+import com.kimenyu.ecommerce.dto.cart.CartDto;
+import com.kimenyu.ecommerce.dto.cart.CartItemDto;
 
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
@@ -49,8 +52,10 @@ public class CartService {
     }
 
 
-    public static CartItemDto getDtoFromCart(Cart cart) {
-        return new CartItemDto(cart);
+    public  CartItemDto getDtoFromCart(Cart cart) {
+        CartItemDto cartItemDto = new CartItemDto();
+        BeanUtils.copyProperties(cart, cartItemDto);
+        return cartItemDto;
     }
 
 

@@ -5,20 +5,20 @@ import java.util.Optional;
 
 import jakarta.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.webtutsplus.ecommerce.model.Category;
-import com.webtutsplus.ecommerce.repository.Categoryrepository;
+import com.kimenyu.ecommerce.entity.Category;
+import com.kimenyu.ecommerce.repository.Categoryrepository;
+
 
 @Service
 @Transactional
 public class CategoryService {
 
-	private final Categoryrepository categoryrepository;
+	@Autowired
+	private Categoryrepository categoryrepository;
 
-	public CategoryService(Categoryrepository categoryrepository) {
-		this.categoryrepository = categoryrepository;
-	}
 
 	public List<Category> listCategories() {
 		return categoryrepository.findAll();

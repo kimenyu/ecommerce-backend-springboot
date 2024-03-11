@@ -1,12 +1,12 @@
 package com.kimenyu.ecommerce.dto.cart;
 
-
-import jakarta.validation.constraints.NotNull;
+import com.kimenyu.ecommerce.entity.Cart;
+import com.kimenyu.ecommerce.entity.Product;
 
 public class CartItemDto {
     private Integer id;
-    private @NotNull Integer quantity;
-    private @NotNull Product product;
+    private Integer quantity;
+    private Product product;
 
     public CartItemDto() {
     }

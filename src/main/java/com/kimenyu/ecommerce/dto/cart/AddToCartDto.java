@@ -1,15 +1,10 @@
 package com.kimenyu.ecommerce.dto.cart;
 
-package com.webtutsplus.ecommerce.dto.cart;
-
-import com.webtutsplus.ecommerce.model.Cart;
-
-import jakarta.validation.constraints.NotNull;
 
 public class AddToCartDto {
     private Integer id;
-    private @NotNull Integer productId;
-    private @NotNull Integer quantity;
+    private Integer productId;
+    private Integer quantity;
 
     public AddToCartDto() {
     }
