@@ -1,45 +1,83 @@
 package com.kimenyu.ecommerce.entity;
 
-import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kimenyu.ecommerce.dto.cart.AddToCartDto;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-@Data
 @Entity
-@Table(name = "carts")
+@Table(name="cart")
 public class Cart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique=true)
-    private OurUsers user;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItem> cartItems = new ArrayList<>();
+    @Column(name = "created_date")
+    private Date createdDate;
 
-    // Calculating total price of the entire cart
-    public BigDecimal calculateTotalPrice() {
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        for (CartItem cartItem : cartItems) {
-            totalPrice = totalPrice.add(cartItem.calculateSubTotal());
-        }
-        return totalPrice;
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
+
+    @JsonIgnore
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "user_id")
+    private User user;
+
+
+    private int quantity;
+
+    public Cart() {
     }
 
-    //isempty
-    public boolean isEmpty() {
-        return cartItems.isEmpty();
+    public Cart(Product product, int quantity, User user){
+        this.user = user;
+        this.product = product;
+        this.quantity = quantity;
+        this.createdDate = new Date();
     }
 
-    //remove all items
-    public void clear() {
-        cartItems.clear();
+    public Integer getId() {
+        return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

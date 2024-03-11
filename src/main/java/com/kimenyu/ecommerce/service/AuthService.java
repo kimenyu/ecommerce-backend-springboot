@@ -2,7 +2,7 @@ package com.kimenyu.ecommerce.service;
 
 
 import com.kimenyu.ecommerce.dto.ReqRes;
-import com.kimenyu.ecommerce.entity.OurUsers;
+import com.kimenyu.ecommerce.entity.User;
 import com.kimenyu.ecommerce.repository.OurUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,13 +27,13 @@ public class AuthService {
     public ReqRes signUp(ReqRes registrationRequest){
         ReqRes resp = new ReqRes();
         try {
-            OurUsers ourUsers = new OurUsers();
-            ourUsers.setEmail(registrationRequest.getEmail());
-            ourUsers.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-            ourUsers.setRole(registrationRequest.getRole());
-            OurUsers ourUserResult = ourUserRepo.save(ourUsers);
+            User User = new User();
+            User.setEmail(registrationRequest.getEmail());
+            User.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+            User.setRole(registrationRequest.getRole());
+            User ourUserResult = ourUserRepo.save(User);
             if (ourUserResult != null && ourUserResult.getId()>0) {
-                resp.setOurUsers(ourUserResult);
+                resp.setUser(ourUserResult);
                 resp.setMessage("User Saved Successfully");
                 resp.setStatusCode(200);
             }
@@ -68,7 +68,7 @@ public class AuthService {
     public ReqRes refreshToken(ReqRes refreshTokenReqiest){
         ReqRes response = new ReqRes();
         String ourEmail = jwtUtils.extractUsername(refreshTokenReqiest.getToken());
-        OurUsers users = ourUserRepo.findByEmail(ourEmail).orElseThrow();
+        User users = ourUserRepo.findByEmail(ourEmail).orElseThrow();
         if (jwtUtils.isTokenValid(refreshTokenReqiest.getToken(), users)) {
             var jwt = jwtUtils.generateToken(users);
             response.setStatusCode(200);

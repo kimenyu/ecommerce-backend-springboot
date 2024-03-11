@@ -4,8 +4,7 @@ package com.kimenyu.ecommerce.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.kimenyu.ecommerce.entity.OurUsers;
-import com.kimenyu.ecommerce.entity.Product;
+import com.kimenyu.ecommerce.entity.User;
 import lombok.Data;
 
 import java.util.List;
@@ -25,6 +24,5 @@ public class ReqRes {
     private String email;
     private String role;
     private String password;
-    private List<Product> products;
-    private OurUsers ourUsers;
+    private User User;
 }
