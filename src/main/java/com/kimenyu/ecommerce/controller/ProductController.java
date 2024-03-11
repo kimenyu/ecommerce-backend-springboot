@@ -1,17 +1,18 @@
 package com.kimenyu.ecommerce.controller;
 
 
-import com.webtutsplus.ecommerce.common.ApiResponse;
-import com.webtutsplus.ecommerce.dto.product.ProductDto;
-import com.webtutsplus.ecommerce.model.Category;
-import com.webtutsplus.ecommerce.service.CategoryService;
-import com.webtutsplus.ecommerce.service.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import com.kimenyu.ecommerce.common.ApiResponse;
+import com.kimenyu.ecommerce.dto.product.ProductDto;
+import com.kimenyu.ecommerce.entity.Category;
+import com.kimenyu.ecommerce.service.CategoryService;
+import com.kimenyu.ecommerce.service.ProductService;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class ProductController {
     }
 
     @PostMapping("/update/{productID}")
-    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productID") Integer productID, @RequestBody @Valid ProductDto productDto) {
+    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productID") Integer productID, @RequestBody ProductDto productDto) {
         Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
         if (!optionalCategory.isPresent()) {
             return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category is invalid"), HttpStatus.CONFLICT);

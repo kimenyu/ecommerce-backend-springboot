@@ -1,10 +1,10 @@
 package com.kimenyu.ecommerce.service;
 
-
-import com.webtutsplus.ecommerce.model.OrderItem;
-import com.webtutsplus.ecommerce.repository.OrderItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.kimenyu.ecommerce.entity.OrderItem;
+import com.kimenyu.ecommerce.repository.OrderItemsRepository;
 
 import jakarta.transaction.Transactional;
 

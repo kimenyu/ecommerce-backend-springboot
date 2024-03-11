@@ -1,11 +1,10 @@
 package com.kimenyu.ecommerce.dto.order;
 
-
-import jakarta.validation.constraints.NotNull;
+import com.kimenyu.ecommerce.entity.Order;
 
 public class OrderDto {
     private Integer id;
-    private @NotNull Integer userId;
+    private Integer userId;
 
     public OrderDto() {
     }

@@ -1,8 +1,5 @@
 package com.kimenyu.ecommerce.entity;
 
-
-
-
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;

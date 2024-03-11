@@ -9,6 +9,7 @@ import com.kimenyu.ecommerce.dto.cart.CartDto;
 import com.kimenyu.ecommerce.dto.cart.CartItemDto;
 import com.kimenyu.ecommerce.dto.checkout.CheckoutItemDto;
 import com.kimenyu.ecommerce.entity.Order;
+import com.kimenyu.ecommerce.entity.OrderItem;
 import com.kimenyu.ecommerce.entity.User;
 import com.kimenyu.ecommerce.exceptions.OrderNotFoundException;
 import com.kimenyu.ecommerce.repository.OrderItemsRepository;

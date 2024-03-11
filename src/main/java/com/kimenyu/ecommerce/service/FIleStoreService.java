@@ -1,14 +1,16 @@
 package com.kimenyu.ecommerce.service;
 
 
-import com.webtutsplus.ecommerce.config.StorageProperties;
-import com.webtutsplus.ecommerce.exceptions.StorageException;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.kimenyu.ecommerce.config.StorageProperties;
+import com.kimenyu.ecommerce.exceptions.StorageException;
 
 import java.io.IOException;
 import java.io.InputStream;

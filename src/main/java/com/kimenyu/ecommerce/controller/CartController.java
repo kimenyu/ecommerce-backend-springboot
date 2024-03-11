@@ -15,6 +15,8 @@ import com.kimenyu.ecommerce.dto.cart.CartDto;
 import com.kimenyu.ecommerce.entity.User;
 import com.kimenyu.ecommerce.entity.Product;
 import com.kimenyu.ecommerce.exceptions.AuthenticationFailException;
+import com.kimenyu.ecommerce.exceptions.CartItemNotExistException;
+import com.kimenyu.ecommerce.exceptions.ProductNotExistException;
 
 
 @RestController
@@ -48,7 +50,7 @@ public class CartController {
         return new ResponseEntity<CartDto>(cartDto,HttpStatus.OK);
     }
     @PutMapping("/update/{cartItemId}")
-    public ResponseEntity<ApiResponse> updateCartItem(@RequestBody @Valid AddToCartDto cartDto,
+    public ResponseEntity<ApiResponse> updateCartItem(@RequestBody AddToCartDto cartDto,
                                                       @RequestParam("token") String token) throws AuthenticationFailException,ProductNotExistException {
         authenticationService.authenticate(token);
         User user = authenticationService.getUser(token);

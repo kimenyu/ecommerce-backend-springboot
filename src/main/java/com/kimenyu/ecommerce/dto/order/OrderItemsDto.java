@@ -1,18 +1,16 @@
 package com.kimenyu.ecommerce.dto.order;
 
 
-import jakarta.validation.constraints.NotNull;
-
 public class OrderItemsDto {
 
-    private @NotNull double price;
-    private @NotNull int quantity;
-    private @NotNull int orderId;
-    private @NotNull int productId;
+    private double price;
+    private int quantity;
+    private int orderId;
+    private int productId;
 
     public OrderItemsDto () {}
 
-    public OrderItemsDto(@NotNull double price, @NotNull int quantity, @NotNull int orderId, @NotNull int productId) {
+    public OrderItemsDto(double price, int quantity, int orderId, int productId) {
         this.price = price;
         this.quantity = quantity;
         this.orderId = orderId;

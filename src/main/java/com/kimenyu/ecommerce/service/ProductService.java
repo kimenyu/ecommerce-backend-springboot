@@ -29,7 +29,7 @@ public class ProductService {
         return productDtos;
     }
 
-    public  ProductDto getDtoFromProduct(Product product) {
+    public static  ProductDto getDtoFromProduct(Product product) {
         ProductDto productDto = new ProductDto();
         BeanUtils.copyProperties(product, productDto);
         return productDto;

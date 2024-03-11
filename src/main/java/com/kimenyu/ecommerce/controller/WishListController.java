@@ -1,22 +1,19 @@
 package com.kimenyu.ecommerce.controller;
 
-package com.webtutsplus.ecommerce.controller;
-
-
-import com.webtutsplus.ecommerce.common.ApiResponse;
-import com.webtutsplus.ecommerce.dto.product.ProductDto;
-import com.webtutsplus.ecommerce.model.Product;
-import com.webtutsplus.ecommerce.model.User;
-import com.webtutsplus.ecommerce.model.WishList;
-import com.webtutsplus.ecommerce.service.AuthenticationService;
-import com.webtutsplus.ecommerce.service.ProductService;
-import com.webtutsplus.ecommerce.service.WishListService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
+
+import com.kimenyu.ecommerce.common.ApiResponse;
+import com.kimenyu.ecommerce.dto.product.ProductDto;
+import com.kimenyu.ecommerce.entity.Product;
+import com.kimenyu.ecommerce.entity.User;
+import com.kimenyu.ecommerce.entity.WishList;
+import com.kimenyu.ecommerce.service.AuthenticationService;
+import com.kimenyu.ecommerce.service.ProductService;
+import com.kimenyu.ecommerce.service.WishListService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,7 @@ public class WishListController {
         public ResponseEntity<ApiResponse> addWishList(@RequestBody Product product, @RequestParam("token") String token) {
                 authenticationService.authenticate(token);
                 User user = authenticationService.getUser(token);
-                WishList wishList = new WishList(user, product);
+                WishList wishList = new WishList();
                 wishListService.createWishlist(wishList);
                 return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Add to wishlist"), HttpStatus.CREATED);
 

@@ -1,9 +1,5 @@
 package com.kimenyu.ecommerce.controller;
 
-package com.webtutsplus.ecommerce.controller;
-
-import com.webtutsplus.ecommerce.model.FileInfo;
-import com.webtutsplus.ecommerce.service.FIleStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+
+import com.kimenyu.ecommerce.entity.FileInfo;
+import com.kimenyu.ecommerce.service.FIleStoreService;
 
 import java.io.IOException;
 import java.nio.file.Path;
