@@ -1,5 +1,6 @@
 package com.kimenyu.ecommerce.service;
 
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl implements CartService{
 
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
@@ -27,18 +28,16 @@ public class CartServiceImpl implements CartService {
         this.productRepository = productRepository;
     }
 
+
     @Override
-    public void addProductToCart(Long cartId, Long productDto) {
+    public void addProductToCart(Long cartId, Product productDto) {
         Cart cart = cartRepository.findById(cartId)
                                   .orElseThrow(() -> new IllegalArgumentException("Cart not found"));
-
-        Product product = productRepository.findById(productId)
+        Product product = productRepository.findById(productDto.getProductId())
                                             .orElseThrow(() -> new IllegalArgumentException("Product not found"));
-
         CartItem cartItem = new CartItem();
         cartItem.setProduct(product);
         cartItem.setQuantity(1); // Default quantity
-
         cart.getCartItems().add(cartItem);
         cartRepository.save(cart);
     }
@@ -113,4 +112,7 @@ public class CartServiceImpl implements CartService {
         // Populate cartItemDto with cart item details
         return cartItemDto;
     }
+
+    
+    
 }

@@ -19,5 +19,7 @@ public interface CartService {
 
     List <CartItemDto> getCartItems(Long cartId);
 
-	void addProductToCart(Long cartId, Product productDto);
+    void addProductToCart(Long cartId, Product productDto);
+
+
 }
