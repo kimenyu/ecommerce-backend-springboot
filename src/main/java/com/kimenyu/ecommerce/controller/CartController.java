@@ -54,6 +54,7 @@ public class CartController {
     @GetMapping("/")
     public ResponseEntity<CartDto> getCartItems(@RequestHeader("Authorization") String token) {
         try {
+            token = token.substring(7);
             User user = authService.getUserFromToken(token);
             CartDto cartDto = cartService.listCartItems(user);
             return new ResponseEntity<>(cartDto, HttpStatus.OK);
@@ -67,6 +68,7 @@ public class CartController {
                                                       @PathVariable("cartItemId") int cartItemId,
                                                       @RequestHeader("Authorization") String token) {
         try {
+            token = token.substring(7);
             User user = authService.getUserFromToken(token);
             Product product = productService.getProductById(cartDto.getProductId());
             cartService.updateCartItem(cartDto, user, product);
@@ -80,6 +82,7 @@ public class CartController {
     public ResponseEntity<ApiResponse> deleteCartItem(@PathVariable("cartItemId") int cartItemId,
                                                       @RequestHeader("Authorization") String token) {
         try {
+            token = token.substring(7);
             User user = authService.getUserFromToken(token);
             cartService.deleteCartItem(cartItemId, user.getId());
             return new ResponseEntity<>(new ApiResponse(true, "Item has been removed"), HttpStatus.OK);

@@ -26,55 +26,78 @@ public class OrderController {
     private OrderService orderService;
 
     @Autowired
-    private AuthService authService; // Inject AuthService
+    private AuthService authService;
 
     // stripe create session API
     @PostMapping("/create-checkout-session")
-    public ResponseEntity<StripeResponse> checkoutList(@RequestBody List<CheckoutItemDto> checkoutItemDtoList) throws StripeException {
-        // create the stripe session
-        Session session = orderService.createSession(checkoutItemDtoList);
-        StripeResponse stripeResponse = new StripeResponse(session.getId());
-        // send the stripe session id in response
-        return new ResponseEntity<>(stripeResponse, HttpStatus.OK);
+    public ResponseEntity<StripeResponse> checkoutList(@RequestBody List<CheckoutItemDto> checkoutItemDtoList) {
+        try {
+            // create the stripe session
+            Session session = orderService.createSession(checkoutItemDtoList);
+            StripeResponse stripeResponse = new StripeResponse(session.getId());
+            // send the stripe session id in response
+            return new ResponseEntity<>(stripeResponse, HttpStatus.OK);
+        } catch (StripeException e) {
+            // Handle Stripe exception
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // place order after checkout
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> placeOrder(@RequestParam("token") String token, @RequestParam("sessionId") String sessionId)
-            throws AuthenticationFailException {
-        // validate token
-        User user = authService.getUserFromToken(token); // Use AuthService to get user
-        // place the order
-        orderService.placeOrder(user, sessionId);
-        return new ResponseEntity<>(new ApiResponse(true, "Order has been placed"), HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse> placeOrder(@RequestHeader("Authorization") String token,
+                                                   @RequestParam("sessionId") String sessionId) {
+        try {
+            // Validate token
+            User user = authService.getUserFromToken(token.substring(7));
+            if (user == null) {
+                return new ResponseEntity<>(new ApiResponse(false, "User not authenticated"), HttpStatus.UNAUTHORIZED);
+            }
+
+            // Place the order
+            orderService.placeOrder(user, sessionId);
+            return new ResponseEntity<>(new ApiResponse(true, "Order has been placed"), HttpStatus.CREATED);
+        } catch (AuthenticationFailException e) {
+            return new ResponseEntity<>(new ApiResponse(false, "Authentication failed"), HttpStatus.UNAUTHORIZED);
+        }
     }
 
     // get all orders
     @GetMapping("/")
-    public ResponseEntity<List<Order>> getAllOrders(@RequestParam("token") String token) throws AuthenticationFailException {
-        // validate token
-        User user = authService.getUserFromToken(token); // Use AuthService to get user
-        // get orders
-        List<Order> orderDtoList = orderService.listOrders(user);
-        return new ResponseEntity<>(orderDtoList, HttpStatus.OK);
+    public ResponseEntity<List<Order>> getAllOrders(@RequestHeader("Authorization") String token) {
+        try {
+            // Validate token
+            User user = authService.getUserFromToken(token.substring(7));
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            // Get orders
+            List<Order> orderDtoList = orderService.listOrders(user);
+            return new ResponseEntity<>(orderDtoList, HttpStatus.OK);
+        } catch (AuthenticationFailException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     // get orderitems for an order
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOrderById(@PathVariable("id") Integer id, @RequestParam("token") String token)
-            throws AuthenticationFailException {
-        // Get user from token
-        User user = authService.getUserFromToken(token);
-        if (user == null) {
-            throw new AuthenticationFailException("Invalid or expired token");
-        }
-
+    public ResponseEntity<Object> getOrderById(@PathVariable("id") Integer id,
+                                                @RequestHeader("Authorization") String token) {
         try {
+            // Validate token
+            User user = authService.getUserFromToken(token.substring(7));
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            // Get order by ID
             Order order = orderService.getOrder(id);
             return new ResponseEntity<>(order, HttpStatus.OK);
+        } catch (AuthenticationFailException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } catch (OrderNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 }
