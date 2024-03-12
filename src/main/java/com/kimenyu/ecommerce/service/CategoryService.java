@@ -3,10 +3,10 @@ package com.kimenyu.ecommerce.service;
 import java.util.List;
 import java.util.Optional;
 
-import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kimenyu.ecommerce.entity.Category;
 import com.kimenyu.ecommerce.repository.Categoryrepository;

@@ -3,6 +3,7 @@ package com.kimenyu.ecommerce.service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kimenyu.ecommerce.entity.Cart;
 import com.kimenyu.ecommerce.entity.Product;
@@ -13,7 +14,6 @@ import com.kimenyu.ecommerce.dto.cart.AddToCartDto;
 import com.kimenyu.ecommerce.dto.cart.CartDto;
 import com.kimenyu.ecommerce.dto.cart.CartItemDto;
 
-import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -17,8 +17,8 @@ import com.kimenyu.ecommerce.service.UserService;
 
 import java.util.List;
 
-@RequestMapping("user")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/users")
+// @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class UserController {
 
