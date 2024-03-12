@@ -40,7 +40,7 @@ public class ProductController {
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Product has been added"), HttpStatus.CREATED);
     }
 
-    @PostMapping("/update/{productID}")
+    @PutMapping("/update/{productID}") 
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productID") Integer productID, @RequestBody ProductDto productDto) {
         Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
         if (!optionalCategory.isPresent()) {

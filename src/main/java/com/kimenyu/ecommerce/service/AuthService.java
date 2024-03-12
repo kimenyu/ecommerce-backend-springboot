@@ -10,6 +10,8 @@ import com.kimenyu.ecommerce.dto.ReqRes;
 import com.kimenyu.ecommerce.entity.User;
 import com.kimenyu.ecommerce.repository.UserRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 import java.util.HashMap;
 
 @Service
