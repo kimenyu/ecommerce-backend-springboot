@@ -1,75 +1,75 @@
-package com.kimenyu.ecommerce.entity;
+// package com.kimenyu.ecommerce.entity;
 
-import jakarta.persistence.*;
-
-
-import java.util.Date;
-import java.util.UUID;
-
-@Entity
-@Table(name = "tokens")
-public class AuthenticationToken {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+// import jakarta.persistence.*;
 
 
-    private String token;
+// import java.util.Date;
+// import java.util.UUID;
 
-    @Column(name = "created_date")
-    private Date createdDate;
+// @Entity
+// @Table(name = "tokens")
+// public class AuthenticationToken {
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "user_id")
-    private User user;
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     @Column(name = "id")
+//     private Integer id;
 
-    public AuthenticationToken(User user) {
-        this.user = user;
-        this.createdDate = new Date();
-        this.token = UUID.randomUUID().toString();
-    }
 
-    public Integer getId() {
-        return id;
-    }
+//     private String token;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//     @Column(name = "created_date")
+//     private Date createdDate;
 
-    public String getToken() {
-        return token;
-    }
+//     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+//     @JoinColumn(nullable = false, name = "user_id")
+//     private User user;
 
-    public void setToken(String Token) {
-        this.token = Token;
-    }
+//     public AuthenticationToken(User user) {
+//         this.user = user;
+//         this.createdDate = new Date();
+//         this.token = UUID.randomUUID().toString();
+//     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+//     public Integer getId() {
+//         return id;
+//     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+//     public void setId(Integer id) {
+//         this.id = id;
+//     }
 
-    public User getUser() {
-        return user;
-    }
+//     public String getToken() {
+//         return token;
+//     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+//     public void setToken(String Token) {
+//         this.token = Token;
+//     }
 
-    public AuthenticationToken(Integer id, String Token, Date createdDate, User user) {
-        this.id = id;
-        this.token = Token;
-        this.createdDate = createdDate;
-        this.user = user;
-    }
+//     public Date getCreatedDate() {
+//         return createdDate;
+//     }
 
-    public AuthenticationToken() {
-    }
-}
+//     public void setCreatedDate(Date createdDate) {
+//         this.createdDate = createdDate;
+//     }
+
+//     public User getUser() {
+//         return user;
+//     }
+
+//     public void setUser(User user) {
+//         this.user = user;
+//     }
+
+//     public AuthenticationToken(Integer id, String Token, Date createdDate, User user) {
+//         this.id = id;
+//         this.token = Token;
+//         this.createdDate = createdDate;
+//         this.user = user;
+//     }
+
+//     public AuthenticationToken() {
+//     }
+// }

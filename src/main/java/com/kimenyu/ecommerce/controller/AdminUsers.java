@@ -1,9 +1,10 @@
 package com.kimenyu.ecommerce.controller;
 
+
+
 import com.kimenyu.ecommerce.dto.ReqRes;
 import com.kimenyu.ecommerce.entity.Product;
 import com.kimenyu.ecommerce.repository.ProductRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AdminUsers {
+
+    @Autowired
+    private ProductRepository productRepo;
+
+    @GetMapping("/public/product")
+    public ResponseEntity<Object> getAllProducts(){
+        return ResponseEntity.ok(productRepo.findAll());
+    }
+
+    @PostMapping("/admin/saveproduct")
+    public ResponseEntity<Object> signUp(@RequestBody ReqRes productRequest){
+        Product productToSave = new Product();
+        productToSave.setName(productRequest.getName());
+        return ResponseEntity.ok(productRepo.save(productToSave));
+    }
 
 
     @GetMapping("/user/alone")
